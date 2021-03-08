@@ -3,9 +3,12 @@ package book
 import (
 	"github.com/dataninja-python/fiber-api/database"
 	"github.com/gofiber/fiber"
+
+	// "github.com/gofiber/fiber/v2"
 	"github.com/jinzhu/gorm"
 )
 
+// creates table schema in a struct
 type Book struct {
 	gorm.Model
 	Title  string `json:"title"`
@@ -13,6 +16,7 @@ type Book struct {
 	Rating int    `json:"rating"`
 }
 
+// get all books in the database
 func GetBooks(c *fiber.Ctx) {
 	db := database.DBConn
 	var books []Book
@@ -20,6 +24,7 @@ func GetBooks(c *fiber.Ctx) {
 	c.JSON(books)
 }
 
+// get a specific book by id
 func GetBook(c *fiber.Ctx) {
 	id := c.Params("id")
 	db := database.DBConn
@@ -28,6 +33,7 @@ func GetBook(c *fiber.Ctx) {
 	c.JSON(book)
 }
 
+// create a new book
 func NewBook(c *fiber.Ctx) {
 	db := database.DBConn
 
@@ -41,6 +47,7 @@ func NewBook(c *fiber.Ctx) {
 	c.JSON(book)
 }
 
+// update a specific book by id
 func UpdateBook(c *fiber.Ctx) {
 	id := c.Params("id")
 	db := database.DBConn
@@ -55,6 +62,7 @@ func UpdateBook(c *fiber.Ctx) {
 	c.JSON(book)
 }
 
+// delete a specific book by id
 func DeleteBook(c *fiber.Ctx) {
 	id := c.Params("id")
 	db := database.DBConn
